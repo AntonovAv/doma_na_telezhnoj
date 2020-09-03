@@ -92,11 +92,11 @@ export default class GameScene extends Phaser.Scene {
         // additional controls
         this.sendLetterIcon = this.add.image(40, 45, 'send_letter').setInteractive();
         this.sendLetterIcon.on(POINTER_UP, () => this._processSendLetter())
-        this.input.keyboard.on('keyup-ONE', () => this._processSendLetter())
+        this.input.keyboard.once('keyup-ONE', () => this._processSendLetter())
 
         this.voteStopIcon = this.add.image(40, 95, 'vote_stop').setInteractive();
         this.voteStopIcon.on(POINTER_UP, () => this._processVoteStop())
-        this.input.keyboard.on('keyup-TWO', () => this._processVoteStop())
+        this.input.keyboard.once('keyup-TWO', () => this._processVoteStop())
 
         //sound
         const music = this.sound.add('music', {volume: 0.7, loop: true, rate: 1.2});
