@@ -15,6 +15,7 @@ export default class GameScene extends Phaser.Scene {
     soundIcon: Phaser.GameObjects.Image;
     sendLetterIcon: Phaser.GameObjects.Image;
     voteStopIcon: Phaser.GameObjects.Image;
+    resetIcon: Phaser.GameObjects.Image;
 
     timer: Timer = null;
 
@@ -119,8 +120,8 @@ export default class GameScene extends Phaser.Scene {
         })
 
         // restart
-        const resetIcon = this.add.image(773, 75, 'reset').setInteractive();
-        resetIcon.on(POINTER_UP, () => {
+        this.resetIcon = this.add.image(773, 75, 'reset').setInteractive();
+        this.resetIcon.on(POINTER_UP, () => {
             this._resetGame()
         })
 
@@ -138,10 +139,12 @@ export default class GameScene extends Phaser.Scene {
         let velocityX = 0;
         let velocityY = 0;
         if (this.pointer && this.pointer.active) {
-            const angle = Phaser.Math.Angle.Between(person.x, person.y, this.pointer.x, this.pointer.y);
-            const velocity = this.physics.velocityFromRotation(angle, PERSON_VELOCITY);
-            velocityX = velocity.x;
-            velocityY = velocity.y
+            if(!this._isPointerUnderButtons()) {
+                const angle = Phaser.Math.Angle.Between(person.x, person.y, this.pointer.x, this.pointer.y);
+                const velocity = this.physics.velocityFromRotation(angle, PERSON_VELOCITY);
+                velocityX = velocity.x;
+                velocityY = velocity.y
+            }
         } else {
             if (this._isPersonWalk_left()) {
                 velocityX = -1 * PERSON_VELOCITY
@@ -218,6 +221,13 @@ export default class GameScene extends Phaser.Scene {
 
     _getAliveHouses() {
         return this.houses.children.entries.filter(h => h.active);
+    }
+
+    _isPointerUnderButtons() {
+        const clickableIcons = [this.sendLetterIcon, this.voteStopIcon, this.soundIcon, this.resetIcon]
+        return clickableIcons.some(icon => {
+            return icon.getBounds().contains(this.pointer.worldX, this.pointer.worldY)
+        })
     }
 
     _stopGameOnDestroyAllHouses() {
