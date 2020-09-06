@@ -30,3 +30,9 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+
+window.addEventListener("orientationchange", function(event) {
+    // reload page and recreate game.
+    // without reloading input manager works incorrectly
+    window.location.reload()
+});
