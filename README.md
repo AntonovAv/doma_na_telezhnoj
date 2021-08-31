@@ -1,6 +1,6 @@
 # doma_na_telezhnoj
 
-Project based on https://github.com/photonstorm/phaser3-typescript-project-template
+Link [https://antonovav.github.io/doma_na_telezhnoj](https://antonovav.github.io/doma_na_telezhnoj/)
 
 Folder `/docs` published with github pages
  
@@ -22,3 +22,6 @@ Folder `/docs` published with github pages
 
 * Edit the file `rollup.config.dev.js` to edit the development build.
 * Edit the file `rollup.config.dist.js` to edit the distribution build.
+
+
+Project based on https://github.com/photonstorm/phaser3-typescript-project-template
